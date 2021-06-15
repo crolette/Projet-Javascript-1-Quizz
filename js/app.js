@@ -291,8 +291,3 @@ formAddQuestions.addEventListener('formdata', (e) => {
 
     questions.push(q)
 })
-
-
-
-
-
