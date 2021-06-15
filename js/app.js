@@ -37,9 +37,6 @@ let questions = [
 ]
 
 
-// let questions = []
-// questions.push(q1, q2, q3, q4)
-
 let bonnesReponses = 0;
 const choix = ['A', 'B', 'C', 'D']
 
@@ -148,9 +145,6 @@ const addQuestionToQuizz = (questionsNrQuizz) => {
     addEventForm();
 }
 
-
-
-
 /* On récupère les divs avec les questions sur la page */
 const addEventForm = () => {
     
@@ -240,8 +234,6 @@ const addScore = (index) => {
         formQuestions.classList.remove("good")
      }
 }
-
-
 
 /* AJOUT NOUVELLE QUESTION */ 
 const formAddQuestions = document.querySelector(".add__questions")
