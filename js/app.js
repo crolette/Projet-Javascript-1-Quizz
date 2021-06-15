@@ -6,17 +6,17 @@ let questions = [
     },
     {
         question: "Quelle est la capitale de la France?",
-        reponses: ["Paris", "Berlin", "Bruxelles", "Rome"],
+        reponses: ["Berlin", "Bruxelles", "Paris", "Rome"],
         good: "Paris"
     },
     {
         question: "Quelle est la capitale de l'Allemagne?",
-        reponses: ["Paris", "Berlin", "Bruxelles", "Rome"],
+        reponses: ["Bruxelles", "Berlin", "Paris", "Rome"],
         good: "Berlin"
     },
     {
         question: "Quelle est la capitale de l'Italie?",
-        reponses: ["Paris", "Berlin", "Bruxelles", "Rome"],
+        reponses: ["Rome", "Berlin", "Bruxelles", "Paris"],
         good: "Rome"
     },
     {
@@ -190,45 +190,35 @@ const addEventForm = () => {
 }
 
 
-
 /* VALIDATION DES REPONSES */
 const verifierReponses = (data, index) => {
     let indexQuestion = data[0]
     let reponse = data[1]
-    data[1] === questions[indexQuestion].good ? addGood(index) : addError(index)
+    data[1] === questions[indexQuestion].good ? addState(index, "good", "error") : addState(index, "error", "good")
 }
 
 
-
 /* Fonction qui ajoute une classe error + animation si la réponse est mauvaise */
-const addError = (index) => {
+const addState = (index, stateIn, stateOut) => {
     const questionsForm = document.querySelectorAll(".question")
 
-    if (questionsForm[index].classList.contains("good")) {
-        questionsForm[index].classList.remove("good")
+    if (questionsForm[index].classList.contains(stateOut)) {
+        questionsForm[index].classList.remove(stateOut)
     }
-    questionsForm[index].classList.add("error")
+    questionsForm[index].classList.add(stateIn)
 
-    /* Animation de la question quand erreur */
-    questionsForm[index].animate([
+    if(stateIn === "error") {
+        /* Animation de la question quand erreur */
+        questionsForm[index].animate([
         {transform: 'translateX(-2px)'},
         {transform: 'translateX(2px)'},
         {transform: 'translateX(-2px)'},
         {transform: 'translateX(2px)'}
     ], 200)
-}
-
-/* Fonction qui ajoute une classe good si la réponse est bonne */
-const addGood = (index) => {
-    const questionsForm = document.querySelectorAll(".question")
-    
-    if (questionsForm[index].classList.contains("error")) {
-        questionsForm[index].classList.remove("error")
+    } else {
+        bonnesReponses++
     }
-    questionsForm[index].classList.add("good")
-    bonnesReponses++
 }
-
 
 
 /* Fonction qui ajoute le score au DOM après avoir soumis le formulaire */
@@ -291,9 +281,9 @@ formAddQuestions.addEventListener('formdata', (e) => {
     let data = e.formData;
   
     const q = {
-        question: "nouvelle question",
+        question: "",
         reponses: [],
-        good: "deux"
+        good: ""
     }
     
     for (let value of data.entries()) {
