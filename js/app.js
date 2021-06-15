@@ -238,10 +238,17 @@ const addScore = (index) => {
     const score = document.querySelector("#score")
     const resultat = document.querySelector(".resultat")
     resultat.classList.remove("is-hidden")
-
+    const resultatTitle = document.querySelector(".resultat__title")
 
     score.innerText = `Nombre de bonnes réponses : ${bonnesReponses} \\ ${index}`
-    bonnesReponses === nbQuestions.length ? formQuestions.classList.add("good") : formQuestions.classList.remove("good")
+
+    if (bonnesReponses === nbQuestions.length) {
+        formQuestions.classList.add("good")
+        resultatTitle.innerText = "BRAVOOO"
+     } else {
+        resultatTitle.innerText = "Résultat"
+        formQuestions.classList.remove("good")
+     }
 }
 
 
